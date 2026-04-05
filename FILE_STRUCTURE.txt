@@ -1,0 +1,127 @@
+NEX-DOMAINS SKILL - COMPLETE FILE STRUCTURE
+============================================
+
+Directory: /sessions/exciting-nice-cori/nex-domains/
+
+MAIN FILES:
+  nex-domains.py       - CLI entry point (402 lines)
+  setup.sh             - Installation script (145 lines)
+  SKILL.md             - Skill definition & documentation (400+ lines)
+  README.md            - User guide & reference (350+ lines)
+  LICENSE.txt          - MIT-0 license
+  FILE_STRUCTURE.txt   - This file
+
+LIBRARY FILES (lib/):
+  __init__.py          - Package initialization
+  config.py            - Configuration & constants (70 lines)
+  storage.py           - Database & storage layer (385 lines)
+  checkers.py          - Domain checking functions (450+ lines)
+
+TOTAL PYTHON LINES: 1503+
+
+FEATURES IMPLEMENTED:
+=====================
+
+Commands (14 total):
+  1. add      - Add domain to portfolio
+  2. scan     - Scan domain (WHOIS, DNS, SSL, HTTP)
+  3. list     - List domains with filters
+  4. show     - Show domain details
+  5. dns      - Show DNS records
+  6. ssl      - Show SSL cert info
+  7. whois    - Show WHOIS info
+  8. expiring - Show expiring domains/SSL
+  9. sync     - Sync from Cloudflare
+  10. search  - Search domains
+  11. remove  - Remove domain
+  12. export  - Export CSV/JSON
+  13. stats   - Portfolio statistics
+  14. check   - Quick health check
+
+Database Tables (3 total):
+  - domains          (18 fields, 7 indexes)
+  - dns_records      (9 fields, 2 indexes)
+  - domain_checks    (5 fields, 1 index)
+
+API Functions:
+  Storage (storage.py):
+    - init_db()
+    - save_domain()
+    - get_domain()
+    - list_domains()
+    - update_domain()
+    - delete_domain()
+    - save_dns_records()
+    - get_dns_records()
+    - get_expiring_domains()
+    - get_expiring_ssl()
+    - get_domain_stats()
+    - search_domains()
+    - export_domains()
+    - save_check_result()
+    - get_check_history()
+
+  Checkers (checkers.py):
+    - check_whois()
+    - check_dns()
+    - check_ssl()
+    - check_http()
+    - query_cloudflare_zones()
+    - query_cloudflare_dns()
+    - sync_domain_from_cloudflare()
+    - scan_domain()
+    - bulk_scan()
+
+Configuration (config.py):
+  - DATA_DIR at ~/.nex-domains
+  - DB_PATH, LOG_PATH
+  - CF_API_TOKEN, CF_EMAIL (env vars)
+  - TRANSIP_LOGIN, TRANSIP_PRIVATE_KEY_PATH (env vars)
+  - DNS_RECORD_TYPES (A, AAAA, CNAME, MX, TXT, NS, SRV, CAA)
+  - DOMAIN_REGISTRARS (cloudflare, transip, other)
+  - Alert thresholds (90d domain, 30d SSL)
+  - External tool paths (whois, dig, openssl)
+
+SETUP SCRIPT:
+  - Detects OS (Linux, macOS, Windows)
+  - Checks Python 3.9+
+  - Validates CLI tools (whois, dig, openssl)
+  - Creates ~/.nex-domains directory
+  - Initializes SQLite database
+  - Creates wrapper script in ~/.local/bin
+  - Platform-specific help for missing tools
+
+DOCUMENTATION:
+  - SKILL.md: 400+ lines - Full skill documentation with examples
+  - README.md: 350+ lines - User guide & troubleshooting
+  - LICENSE.txt: MIT-0 license
+  - Code docstrings in all functions
+
+EXAMPLE USAGE:
+  nex-domains add nex-ai.be --registrar cloudflare --client "Nex AI" --auto-renew
+  nex-domains scan nex-ai.be
+  nex-domains list --registrar cloudflare
+  nex-domains expiring
+  nex-domains sync
+  nex-domains stats
+  nex-domains export csv --output domains.csv
+
+DESIGN NOTES:
+  - No external Python dependencies (stdlib only)
+  - Uses subprocess for CLI tools (whois, dig, openssl)
+  - SQLite database for portability
+  - Proper error handling and logging
+  - Follows ClawHub skill conventions
+  - Supports multi-registrar portfolios
+  - Client/project organization
+  - Cost tracking
+  - Comprehensive status tracking
+
+REQUIREMENTS:
+  - Python 3.9+
+  - CLI tools: whois, dig (bind-utils), openssl
+  - Network access for WHOIS/DNS/SSL checks
+  - Environment variables (optional): CF_API_TOKEN, CF_EMAIL
+
+BUILD DATE: 2026-04-05
+BUILT BY: Nex AI (nex-ai.be)
